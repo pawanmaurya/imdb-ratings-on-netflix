@@ -69,7 +69,7 @@ function getDivId(name, year){
 }
 
 function makeRequestAndAddRating(name, year) {
-	var url = "https://www.omdbapi.com/?apikey=f5275eb7&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
+	var url = "https://www.omdbapi.com/?apikey=<secret_key>&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
 	$.ajax({
 								type: "GET",
 								url: url,
