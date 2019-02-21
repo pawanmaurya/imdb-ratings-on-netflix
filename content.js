@@ -98,28 +98,32 @@ function getRatings(name, year){
 		var rottenRating = window.sessionStorage.getItem("rotten"+name+":"+year);
 		addRottenRating(rottenRating, name, year);
 	} else {
-		var url = "https://www.omdbapi.com/?apikey=<secret_key>&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
-		$.ajax({
-									type: "GET",
-									url: url,
-									contentType: 'application/json',
-									xhrFields: {
-								withCredentials: true
-						},
-									dataType: 'json',
-									async : false,
-									success: function (apiResponse) {
-										var imdbRating = apiResponse["imdbRating"];
-										var rottenRating = extractRottenTomatoesRating(apiResponse["Ratings"]);
-										window.sessionStorage.setItem(name+":"+year, imdbRating);
-										window.sessionStorage.setItem("rotten:"+name+":"+year, rottenRating);
-										addIMDBRating(imdbRating, name, year);
-										addRottenRating(rottenRating, name, year);
-									},
-									error: function (data) {
-									}
-			});
+		makeRequestAndAddRating(name, year)
 	}
+};
+
+function makeRequestAndAddRating(name, year) {
+	var url = "https://www.omdbapi.com/?apikey=<secret_key>&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
+	$.ajax({
+								type: "GET",
+								url: url,
+								contentType: 'application/json',
+								xhrFields: {
+							withCredentials: true
+					},
+								dataType: 'json',
+								async : false,
+								success: function (apiResponse) {
+									var imdbRating = apiResponse["imdbRating"];
+									var rottenRating = extractRottenTomatoesRating(apiResponse["Ratings"]);
+									window.sessionStorage.setItem(name+":"+year, imdbRating);
+									window.sessionStorage.setItem("rotten:"+name+":"+year, rottenRating);
+									addIMDBRating(imdbRating, name, year);
+									addRottenRating(rottenRating, name, year);
+								},
+								error: function (data) {
+								}
+		});
 };
 
 function extractRottenTomatoesRating(ratings) {
