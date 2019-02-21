@@ -25,7 +25,7 @@ function fetchMovieNameYear() {
 
 	var divId = getDivId(title, year);
 
-	if(document.querySelector("#"+divId) !== null && $("#"+divId).is(":visible")){
+	if(document.querySelector("#"+divId) !== null && $("#"+divId).is(":visible")) {
 		return;
 	}
 
@@ -36,11 +36,11 @@ function fetchMovieNameYear() {
 		var rottenRating = window.sessionStorage.getItem("rotten"+title+":"+year);
 		addRottenRating(rottenRating, title, year);
 	} else {
-		getRatings(title,year);
+		makeRequestAndAddRating(title, year)
 	}
 };
 
-function addIMDBRating(imdbRating, name, year){
+function addIMDBRating(imdbRating, name, year) {
 	var divId = getDivId(name, year);
 
 	if(document.querySelector("#"+divId) !== null && $("#"+divId).is(":visible")){
@@ -51,10 +51,10 @@ function addIMDBRating(imdbRating, name, year){
 		'<div class="imdbRating" id="'+divId+'">'+'IMDb rating : ' + ((imdbRating && imdbRating != 'undefined')?imdbRating:"N/A"));
 }
 
-function addRottenRating(rottenRating, name, year){
+function addRottenRating(rottenRating, name, year) {
 	var divId = `rotten${getDivId(name, year)}`;
 
-	if(document.querySelector("#"+divId) !== null && $("#"+divId).is(":visible")){
+	if(document.querySelector("#"+divId) !== null && $("#"+divId).is(":visible")) {
 		return;
 	}
 
@@ -68,42 +68,8 @@ function getDivId(name, year){
 	return "aaa"+name+"_"+year;
 }
 
-
-$(document).ready(function(event) {
-	if(window.sessionStorage === "undefined")
-		return;
-
-	var target = document.body;
-	// create an observer instance
-	var observer = new MutationObserver(function(mutations) {
-	  mutations.forEach(function(mutation) {
-	  	window.setTimeout(fetchMovieNameYear,5);
-	  });
-	});
-	// configuration of the observer:
-	var config = {
-	  attributes: true,
-	  childList: true,
-	  characterData: true
-	};
-
-	observer.observe(target, config);
-});
-
-function getRatings(name, year){
-	var existingImdbRating = window.sessionStorage.getItem(name+":"+year);
-	if((existingImdbRating !== "undefined") && (existingImdbRating !== null)){
-		addIMDBRating(existingImdbRating, name, year);
-		//if imdbRating is fetched, rotten is fetched too
-		var rottenRating = window.sessionStorage.getItem("rotten"+name+":"+year);
-		addRottenRating(rottenRating, name, year);
-	} else {
-		makeRequestAndAddRating(name, year)
-	}
-};
-
 function makeRequestAndAddRating(name, year) {
-	var url = "https://www.omdbapi.com/?apikey=<secret_key>&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
+	var url = "https://www.omdbapi.com/?apikey=f5275eb7&t="+encodeURI(name)+"&y="+year+"tomatoes=true";
 	$.ajax({
 								type: "GET",
 								url: url,
@@ -130,3 +96,24 @@ function extractRottenTomatoesRating(ratings) {
 	const rottenRating = ratings.filter( rating => rating.Source === "Rotten Tomatoes")
 	return rottenRating[0] ? rottenRating[0].Value : undefined
 };
+
+$(document).ready(function(event) {
+	if(window.sessionStorage === "undefined")
+		return;
+
+	var target = document.body;
+	// create an observer instance
+	var observer = new MutationObserver(function(mutations) {
+	  mutations.forEach(function(mutation) {
+	  	window.setTimeout(fetchMovieNameYear,5);
+	  });
+	});
+	// configuration of the observer:
+	var config = {
+	  attributes: true,
+	  childList: true,
+	  characterData: true
+	};
+
+	observer.observe(target, config);
+});
