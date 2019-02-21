@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "IMDb ratings on Netflix",
-  "version": "0.141",
+  "version": "0.142",
   "description": "View IMDb ratings on Netflix",
   "content_scripts": [
   {
@@ -9,7 +9,7 @@
       "https://www.netflix.com/*", "https://www.omdbapi.com/*"
     ],
     "js": ["jquery-3.2.1.min.js", "content.js"]
-    
+
   }
   ],
   "icons": { "16": "icon16.png", "48":"icon48.png"},
