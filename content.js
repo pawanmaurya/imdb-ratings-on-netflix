@@ -62,7 +62,7 @@ function addRottenRating(rottenRating, name, year) {
     }
 
     $('.jawBone .synopsis').last().before(
-        '<div class="rottenRating" id="' + divId + '">' + 'Rotten Tomatoes rating : ' + ((rottenRating && rottenRating != 'undefined') ? rottenRating : "N/A"));
+        '<div class="rottenRating" id="' + divId + '">' + 'Rotten Tomatoes rating : ' + ((rottenRating && rottenRating !== 'undefined') ? rottenRating : "N/A"));
 }
 
 function getDivId(name, year) {
@@ -95,8 +95,8 @@ function makeRequestAndAddRating(name, year) {
 };
 
 function extractRottenTomatoesRating(ratings) {
-    const rottenRating = ratings.filter(rating => rating.Source === "Rotten Tomatoes")
-    return rottenRating[0] ? rottenRating[0].Value : undefined
+    const rottenRating = ratings.filter(rating => rating.Source === "Rotten Tomatoes");
+    return rottenRating[0] ? rottenRating[0].Value : "undefined";
 };
 
 $(document).ready(function(event) {
