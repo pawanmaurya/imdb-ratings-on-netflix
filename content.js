@@ -52,6 +52,9 @@ function addIMDBRating(imdbRating, name, year) {
 }
 
 function addRottenRating(rottenRating, name, year) {
+	if(rottenRating === "undefined" || rottenRating === "N/A")
+		return;
+
     var divId = `rotten${getDivId(name, year)}`;
 
     if (document.querySelector("#" + divId) !== null && $("#" + divId).is(":visible")) {
