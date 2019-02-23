@@ -33,7 +33,7 @@ function fetchMovieNameYear() {
     if ((existingImdbRating !== "undefined") && (existingImdbRating !== null)) {
         addIMDBRating(existingImdbRating, title, year);
         //if imdbRating is fetched, rotten is fetched too
-        var rottenRating = window.sessionStorage.getItem("rotten" + title + ":" + year);
+        var rottenRating = window.sessionStorage.getItem("rotten" + ":" + title + ":" + year);
         addRottenRating(rottenRating, title, year);
     } else {
         makeRequestAndAddRating(title, year)
