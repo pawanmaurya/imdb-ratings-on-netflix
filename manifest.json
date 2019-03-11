@@ -8,7 +8,7 @@
     "matches": [
       "https://www.netflix.com/*", "https://www.omdbapi.com/*"
     ],
-    "js": ["jquery-3.3.1.min.js", "content.js"]
+    "js": ["content.js"]
   }
   ],
   "icons": { "16": "icon16.png", "48":"icon48.png"},
