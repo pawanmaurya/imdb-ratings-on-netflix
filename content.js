@@ -50,7 +50,7 @@ function addIMDBRating(imdbRating, name, year) {
 
     var synopsises = document.querySelectorAll('.jawBone .synopsis');
     if (synopsises.length) {
-      var synopsis = synopsises[synopsis.length - 1];
+      var synopsis = synopsises[synopsises.length - 1];
       var div = document.createElement('div');
       div.innerHTML = 'IMDb rating : ' + ((imdbRating && imdbRating != 'undefined') ? imdbRating : "N/A");
       div.className = 'imdbRating';
@@ -71,7 +71,7 @@ function addRottenRating(rottenRating, name, year) {
 
     var synopsises = document.querySelectorAll('.jawBone .synopsis');
     if (synopsises.length) {
-      var synopsis = synopsises[synopsis.length - 1];
+      var synopsis = synopsises[synopsises.length - 1];
       var div = document.createElement('div');
       div.innerHTML = 'Rotten Tomatoes rating : ' + ((rottenRating && rottenRating !== 'undefined') ? rottenRating : "N/A");
       div.className = 'rottenRating';
@@ -87,7 +87,9 @@ function getDivId(name, year) {
 }
 
 function makeRequestAndAddRating(name, year) {
-    var url = "https://www.omdbapi.com/?apikey=<secret_key>&t=" + encodeURI(name) + "&y=" + year + "tomatoes=true";
+
+    var url = "https://www.omdbapi.com/?apikey=<secret_key>&t=" + encodeURI(name)
+              + "&y=" + year + "tomatoes=true";
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
