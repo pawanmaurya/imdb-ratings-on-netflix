@@ -6,6 +6,9 @@ Chrome extension : https://chrome.google.com/webstore/detail/imdb-ratings-on-net
 
 Firefox add-on : https://addons.mozilla.org/en-US/firefox/addon/imdb-ratings-on-netflix/
 
+# Demo
+![](demo.gif)
+
 # Ratings Supported
 * IMDb (along with votes count and IMDb link)
 * Rotten tomatoes
