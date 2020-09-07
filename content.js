@@ -134,8 +134,6 @@ function makeRequestAndAddRating(name, year) {
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function () {
         if (xhr.status === 200) {
             var apiResponse = JSON.parse(xhr.responseText);
