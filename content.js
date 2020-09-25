@@ -1,33 +1,17 @@
 function fetchMovieNameYear() {
-    var synopsis = document.querySelectorAll('.jawBone .jawbone-title-link');
-    if (synopsis === null) {
+    var titleElement = document.querySelectorAll('.previewModal--player-titleTreatment-logo');
+    if (titleElement === undefined || titleElement[0] === undefined) {
         return;
     }
 
-    var logoElement = document.querySelectorAll('.jawBone .jawbone-title-link .title');
+    var title = titleElement[0].getAttribute("alt");
 
-    if (logoElement.length === 0)
-        return;
-
-    logoElement = logoElement[logoElement.length - 1];
-
-    var title = logoElement.textContent;
-
-    if (title === "")
-        title = logoElement.querySelector(".logo").getAttribute("alt");
-
-    var titleElement = document.querySelectorAll('.jawBone .jawbone-title-link .title .text').textContent;
-
-    var yearElement = document.querySelectorAll('.jawBone .jawbone-overview-info .meta .year');
-    if (yearElement.length === 0)
-        return;
-    var year = yearElement[yearElement.length - 1].textContent;
-
-    var divId = getDivId(title, year);
-    var divEl = document.getElementById(divId);
-    if (divEl && (divEl.offsetWidth || divEl.offsetHeight || divEl.getClientRects().length)) {
+    var movieYearElement = document.querySelectorAll('.previewModal--detailsMetadata-left .year');
+    if (movieYearElement === undefined || movieYearElement[0] === undefined) {
         return;
     }
+
+    var year = movieYearElement[0].innerHTML;
 
     var existingImdbRating = window.sessionStorage.getItem(title + ":" + year);
     if ((existingImdbRating !== "undefined") && (existingImdbRating !== null)) {
@@ -51,7 +35,7 @@ function addIMDBRating(imdbMetaData, name, year) {
         return;
     }
 
-    var synopsises = document.querySelectorAll('.jawBone .synopsis');
+    var synopsises = document.querySelectorAll('.preview-modal-synopsis');
     if (synopsises.length) {
         var synopsis = synopsises[synopsises.length - 1];
         var div = document.createElement('div');
@@ -66,7 +50,7 @@ function addIMDBRating(imdbMetaData, name, year) {
             imdbVoteCount = imdbMetaDataArr[1];
             imdbId = imdbMetaDataArr[2];
         }
-        var imdbHtml = 'IMDb rating : ' + (imdbRatingPresent ? imdbRating : "N/A") + (imdbVoteCount ? ", Vote Count : " + imdbVoteCount : "");
+        var imdbHtml = 'IMDb rating : ' + (imdbRatingPresent ? imdbRating : "N/A") + (imdbVoteCount ? ", Vote Count : " + imdbVoteCount : "")+" (click for IMDb page)";
 
         if (imdbId !== null) {
             imdbHtml = "<a target='_blank' href='https://www.imdb.com/title/" + imdbId + "'>" + imdbHtml + "</a>";
@@ -129,7 +113,7 @@ function getDivId(name, year) {
 
 function makeRequestAndAddRating(name, year) {
 
-    var url = "https://www.omdbapi.com/?apikey=<secret_key>&t=" + encodeURI(name)
+    var url = "https://www.omdbapi.com/?apikey=<secret_key>=" + encodeURI(name)
         + "&y=" + year + "tomatoes=true";
 
     var xhr = new XMLHttpRequest();
