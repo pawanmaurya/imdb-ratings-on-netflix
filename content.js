@@ -113,8 +113,8 @@ function getDivId(name, year) {
 
 function makeRequestAndAddRating(name, year) {
 
-    var url = "https://www.omdbapi.com/?apikey=<secret_key>=" + encodeURI(name)
-        + "&y=" + year + "tomatoes=true";
+    var url = "https://www.omdbapi.com/?apikey=<secret_key>=&t" + encodeURI(name)
+        + "&y=" + year + "&tomatoes=true";
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
