@@ -1,5 +1,5 @@
 function fetchMovieNameYear() {
-    var titleElement = document.querySelectorAll('.previewModal--player-titleTreatment-logo');
+    var titleElement = document.querySelectorAll('.playerModel--player__storyArt');
     if (titleElement === undefined || titleElement[0] === undefined) {
         return;
     }
